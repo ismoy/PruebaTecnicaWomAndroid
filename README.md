@@ -37,6 +37,8 @@ La aplicación utiliza los principios SOLID de la siguiente manera:
 	4.	Interface Segregation Principle (ISP): Las interfaces se mantienen específicas y enfocadas, como DogBreedsRepository y DogImagesRepository, en lugar de una única interfaz de repositorio genérica.
 	5.	Dependency Inversion Principle (DIP): La aplicación depende de abstracciones en lugar de implementaciones concretas. Hilt se utiliza para la inyección de dependencias, permitiendo que el código de la capa de presentación dependa de interfaces en la capa de dominio.
 
+Estructura de la APP
+
 app/src/main/java/com/github/comismoy/pruebatecnicawomandroid/
 │
 ├── data                       # Capa de datos
@@ -72,7 +74,7 @@ Prerrequisitos
 Instalación
 
    1. Clona el repositorio:
-      git clone https://github.com/tuusuario/dog-breeds-app.git
+      git clone https://github.com/ismoy/PruebaTecnicaWomAndroid/
    2. Abre el proyecto en Android Studio.
    3. Sincroniza el proyecto para descargar las dependencias.
    4. Ejecuta la aplicación en un emulador o dispositivo físico con Android 5.0 (API nivel 21) o superior.
