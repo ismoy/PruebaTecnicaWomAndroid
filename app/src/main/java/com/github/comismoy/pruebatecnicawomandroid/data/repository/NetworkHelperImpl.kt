@@ -1,4 +1,4 @@
-package com.github.comismoy.pruebatecnicawomandroid.data
+package com.github.comismoy.pruebatecnicawomandroid.data.repository
 
 import android.content.Context
 import android.net.ConnectivityManager

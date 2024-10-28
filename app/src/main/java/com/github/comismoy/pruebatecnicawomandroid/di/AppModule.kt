@@ -1,7 +1,7 @@
 package com.github.comismoy.pruebatecnicawomandroid.di
 
 import android.content.Context
-import com.github.comismoy.pruebatecnicawomandroid.data.NetworkHelperImpl
+import com.github.comismoy.pruebatecnicawomandroid.data.repository.NetworkHelperImpl
 import com.github.comismoy.pruebatecnicawomandroid.data.core.NetworkHelper
 import dagger.Module
 import dagger.Provides
