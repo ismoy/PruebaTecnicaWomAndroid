@@ -1,4 +1,4 @@
-package com.github.comismoy.pruebatecnicawomandroid.data
+package com.github.comismoy.pruebatecnicawomandroid.data.repository
 
 import com.github.comismoy.pruebatecnicawomandroid.data.core.ResultData
 import com.github.comismoy.pruebatecnicawomandroid.data.mappers.DogBreedsImagesMapper.toDogImageModel
