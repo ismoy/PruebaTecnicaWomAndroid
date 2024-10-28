@@ -67,7 +67,7 @@ Cómo Ejecutar el Proyecto
 Prerrequisitos
 
 	•	Android Studio Bumblebee o superior.
-	•	Kotlin 1.6 o superior.
+	•	Kotlin 1.9.0 o superior.
 
 Instalación
 
