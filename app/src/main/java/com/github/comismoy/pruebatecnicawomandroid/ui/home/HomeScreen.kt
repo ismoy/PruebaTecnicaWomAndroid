@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.github.comismoy.pruebatecnicawomandroid.ui.core.navigation.ScreenRoutes
 import com.github.comismoy.pruebatecnicawomandroid.ui.core.utils.Constants.TiTLETOPBAR
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,14 +62,20 @@ fun  HomeScreen(navController: NavHostController) {
         ) {
             DogBreedsList(
                 dogBreedsState = dogBreedsState,
-                onBreedClick = {}
+                onBreedClick = {breedName->
+                    navController.navigate(
+                        ScreenRoutes.Details.createRoute(
+                            breedName = breedName
+                        )
+                    )
+                }
             )
         }
     }
 }
 
 @Composable
-fun DogBreedsList(dogBreedsState: DogBreedsState, onBreedClick: () -> Unit) {
+fun DogBreedsList(dogBreedsState: DogBreedsState, onBreedClick: (String) -> Unit) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (dogBreedsState.breedsList?.breedsList.isNullOrEmpty()) {
@@ -88,7 +95,7 @@ fun DogBreedsList(dogBreedsState: DogBreedsState, onBreedClick: () -> Unit) {
             ) {
                 items(dogBreedsState.breedsList!!.breedsList.size) { index ->
                     val breed = dogBreedsState.breedsList.breedsList[index]
-                    DogBreedCard(breed = breed, onBreedClick = {})
+                    DogBreedCard(breed = breed, onBreedClick = onBreedClick)
                 }
             }
         }
