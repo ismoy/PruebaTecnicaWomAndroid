@@ -71,11 +71,11 @@ Prerrequisitos
 
 Instalación
 
-	1.	Clona el repositorio:
+   1. Clona el repositorio:
       git clone https://github.com/tuusuario/dog-breeds-app.git
-  2.	Abre el proyecto en Android Studio.
-	3.	Sincroniza el proyecto para descargar las dependencias.
-	4.	Ejecuta la aplicación en un emulador o dispositivo físico con Android 5.0 (API nivel 21) o superior.
+   2. Abre el proyecto en Android Studio.
+   3. Sincroniza el proyecto para descargar las dependencias.
+   4. Ejecuta la aplicación en un emulador o dispositivo físico con Android 5.0 (API nivel 21) o superior.
 
 Pruebas Unitarias
 
