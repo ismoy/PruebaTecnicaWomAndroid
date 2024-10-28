@@ -1,5 +1,7 @@
 package com.github.comismoy.pruebatecnicawomandroid.di
 
+import com.github.comismoy.pruebatecnicawomandroid.data.core.DefaultDispatcherProvider
+import com.github.comismoy.pruebatecnicawomandroid.data.core.DispatcherProvider
 import com.github.comismoy.pruebatecnicawomandroid.ui.core.utils.Constants.BASE_URL
 import com.github.comismoy.pruebatecnicawomandroid.data.remote.DogApiServices
 import dagger.Module
@@ -27,4 +29,8 @@ object NetworkModule {
     @Singleton
     fun provideDogApiServices(retrofit: Retrofit):DogApiServices =
         retrofit.create(DogApiServices::class.java)
+    @Provides
+    @Singleton
+    fun provideDispatcherProvider(): DispatcherProvider = DefaultDispatcherProvider()
+
 }
