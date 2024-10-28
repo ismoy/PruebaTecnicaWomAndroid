@@ -1,6 +1,7 @@
 package com.github.comismoy.pruebatecnicawomandroid.di
 
-import com.github.comismoy.pruebatecnicawomandroid.Constants.BASE_URL
+import com.github.comismoy.pruebatecnicawomandroid.ui.core.Constants.BASE_URL
+import com.github.comismoy.pruebatecnicawomandroid.data.remote.DogApiServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +22,9 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideDogApiServices(retrofit: Retrofit):DogApiServices =
+        retrofit.create(DogApiServices::class.java)
 }
