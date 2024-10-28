@@ -3,24 +3,32 @@ package com.github.comismoy.pruebatecnicawomandroid.ui.home
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +45,8 @@ import com.github.comismoy.pruebatecnicawomandroid.ui.core.utils.Constants.TiTLE
 fun  HomeScreen(navController: NavHostController) {
     val viewModel : DogBreedsViewModel = hiltViewModel()
     val dogBreedsState by  viewModel.dogBreeds.collectAsState()
+    val showErrorSheet = remember{ mutableStateOf(false) }
+    val showCircle = remember{ mutableStateOf(false) }
 
     LaunchedEffect(Unit){
         viewModel.getDogBreeds()
@@ -69,16 +79,62 @@ fun  HomeScreen(navController: NavHostController) {
                         )
                     )
                 }
+
             )
         }
+        if (dogBreedsState.error != null) {
+            showErrorSheet.value = true
+        }
     }
+    if (showErrorSheet.value && dogBreedsState.error != null) {
+        ErrorBottomSheet(
+            error = dogBreedsState.error,
+            onRetry = {
+                showErrorSheet.value = false
+                viewModel.getDogBreeds()
+            },
+            onDismiss = { showErrorSheet.value = false }
+        )
+        }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ErrorBottomSheet(error: String?, onRetry: () -> Unit, onDismiss: () -> Unit) {
+
+    ModalBottomSheet(
+        onDismissRequest = { onDismiss() }
+    ) {
+        Column {
+            Text(
+                text = error?:"Error",
+                fontSize = 24.sp,
+                color = Color.Red,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Button(
+                onClick = { onRetry() },
+                modifier = Modifier
+                    .padding(horizontal = 46.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(text = "Reintentar")
+            }
+        }
+    }
+
 }
 
 @Composable
-fun DogBreedsList(dogBreedsState: DogBreedsState, onBreedClick: (String) -> Unit) {
+fun DogBreedsList(
+    dogBreedsState: DogBreedsState,
+    onBreedClick: (String) -> Unit
+) {
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if (dogBreedsState.breedsList?.breedsList.isNullOrEmpty()) {
+        if (dogBreedsState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .align(Alignment.Center)
@@ -93,8 +149,8 @@ fun DogBreedsList(dogBreedsState: DogBreedsState, onBreedClick: (String) -> Unit
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
             ) {
-                items(dogBreedsState.breedsList!!.breedsList.size) { index ->
-                    val breed = dogBreedsState.breedsList.breedsList[index]
+                items(dogBreedsState.breedsList?.breedsList?.size?:0) { index ->
+                    val breed = dogBreedsState.breedsList!!.breedsList[index]
                     DogBreedCard(breed = breed, onBreedClick = onBreedClick)
                 }
             }
