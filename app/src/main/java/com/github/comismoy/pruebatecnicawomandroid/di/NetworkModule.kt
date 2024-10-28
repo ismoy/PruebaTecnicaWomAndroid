@@ -1,6 +1,6 @@
 package com.github.comismoy.pruebatecnicawomandroid.di
 
-import com.github.comismoy.pruebatecnicawomandroid.ui.core.Constants.BASE_URL
+import com.github.comismoy.pruebatecnicawomandroid.ui.core.utils.Constants.BASE_URL
 import com.github.comismoy.pruebatecnicawomandroid.data.remote.DogApiServices
 import dagger.Module
 import dagger.Provides
